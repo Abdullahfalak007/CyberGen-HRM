@@ -4,7 +4,7 @@ import React from "react";
 
 const MainContent = ({ onJobSelect, onFileUpload }) => {
   return (
-    <div className="flex-1 p-6">
+    <div className="flex-1 p-6 w-full">
       <div
         id="progress-container"
         className="flex justify-center items-center m-6"

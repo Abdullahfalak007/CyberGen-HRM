@@ -36,7 +36,7 @@ const ProgressMilestone = ({ jobSelected, resumeUploaded }) => {
   }, [jobSelected, resumeUploaded]);
 
   return (
-    <div className="flex justify-center items-center m-6">
+    <div className="flex justify-center items-center m-6 px-6">
       {steps.map((step, index) => (
         <React.Fragment key={step.step}>
           <div className="flex flex-col items-center">
@@ -45,18 +45,18 @@ const ProgressMilestone = ({ jobSelected, resumeUploaded }) => {
               className={`relative flex justify-center items-center w-14 h-14 ${
                 step.active
                   ? "bg-customblue text-white"
-                  : "bg-white text-customblue"
-              } border-2 border-customblue rounded-full font-bold font-display text-base`}
+                  : "bg-white text-customblue border-customblue"
+              } border-[0.1rem] rounded-full font-bold font-display text-base`}
             >
               {step.completed ? <>&#10003;</> : step.step}
             </div>
             <div
               id={`step${step.step}-label`}
-              className={`mt-6 px-4 py-3 rounded-lg text-center ${
+              className={`mt-6 px-4 py-2 w-40 rounded-lg text-center ${
                 step.active
                   ? "bg-gradient-to-r from-customblue to-customlightblue text-white"
-                  : "bg-white text-customblue"
-              } border-2 border-customblue`}
+                  : "bg-white text-customblue border-customblue"
+              } border-[0.1rem]`}
             >
               {step.label}
             </div>

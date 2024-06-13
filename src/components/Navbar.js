@@ -3,7 +3,7 @@ import "tailwindcss/tailwind.css";
 const Navbar = () => {
   return (
     <nav>
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-6">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-12">
         <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
           <span className="self-center text-2xl font-display font-semibold text-customblue whitespace-nowrap">
             CV Analyzer
