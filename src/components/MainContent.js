@@ -21,18 +21,16 @@ const MainContent = ({ onJobSelect, onFileUpload }) => {
                 className="block w-full px-4 py-2 rounded-md bg-white border-b border-gray-300 focus:outline-none focus:border-blue-500 shadow-bottom shadow-md"
                 onChange={onJobSelect}
               >
-                <option disabled defaultValue>
-                  Select Job Post
-                </option>
+                <option defaultValue>Select Job Post</option>
                 <option>Job Post 1</option>
                 <option>Job Post 2</option>
                 <option>Job Post 3</option>
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"></div>
             </div>
-            <h3 className="text-lg font-display font-semibold mb-3 mt-3">
+            <h2 className="text-lg font-display font-semibold mb-3 mt-3">
               Upload Resume
-            </h3>
+            </h2>
             <label className="block">
               <input
                 type="file"
@@ -58,9 +56,9 @@ const MainContent = ({ onJobSelect, onFileUpload }) => {
               className="w-full h-[7.31rem] px-4 py-2 mb-3 rounded-md cursor-pointer border-b border-gray-300 shadow-bottom shadow-md resize-none"
               placeholder="Enter job requirements..."
             ></textarea>
-            <h3 className="text-lg font-display font-semibold mb-3">
+            <h2 className="text-lg font-display font-semibold mb-3">
               Skills <span className="text-red-500">*</span>
-            </h3>
+            </h2>
             <div
               id="dynamicContainer"
               className="flex flex-wrap border-b min-h-[10rem] border-gray-300 shadow-bottom shadow-md p-4"
