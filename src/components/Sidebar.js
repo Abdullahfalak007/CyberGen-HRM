@@ -1,37 +1,11 @@
-import React, { useEffect } from "react";
-import sidebarItems from "../data/sidebarItems.json"; // Import JSON data for sidebar items
-import "tailwindcss/tailwind.css";
+import React, { useState } from "react";
+import sidebarItems from "../data/sidebarItems.json"; // Assuming sidebarItems.json contains your data
 
 const Sidebar = () => {
-  useEffect(() => {
-    const sidebar = document.getElementById("sidebar");
-    sidebar.innerHTML = "";
+  const [selectedItem, setSelectedItem] = useState(null);
 
-    sidebarItems.forEach((item) => {
-      const div = document.createElement("div");
-      div.setAttribute("role", "button");
-      div.className =
-        "sidebar-item flex items-center w-full p-3 leading-tight transition-all outline-none text-start text-white hover:bg-hoverbg";
-      div.addEventListener("click", () => selectSidebarItem(item)); // Use addEventListener instead of setting onclick attribute
-
-      const innerDiv = document.createElement("div");
-      innerDiv.className = "grid mr-4 pl-4 place-items-left text-customsize";
-      const img = document.createElement("img");
-      img.src = item.imgSrc;
-      img.alt = "";
-      innerDiv.appendChild(img);
-
-      const textNode = document.createTextNode(item.text);
-
-      div.appendChild(innerDiv);
-      div.appendChild(textNode);
-      sidebar.appendChild(div);
-    });
-  }, []);
-
-  const selectSidebarItem = (item) => {
-    // Implement your selection logic here
-    console.log("Selected item:", item);
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
   };
 
   return (
@@ -46,7 +20,38 @@ const Sidebar = () => {
       <nav
         id="sidebar"
         className="flex min-w-[240px] flex-col gap-1 py-2 font-display text-base font-normal"
-      ></nav>
+      >
+        {sidebarItems.map((item) => (
+          <div
+            key={item.text}
+            className={`sidebar-item flex items-center w-full p-3 leading-tight transition-all outline-none text-start ${
+              selectedItem === item
+                ? "bg-selectedbg text-selectedtext border-l-4 border-tilecolor"
+                : "text-white hover:bg-hoverbg"
+            }`}
+            role="button"
+            tabIndex={0}
+            onClick={() => handleItemClick(item)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                handleItemClick(item);
+              }
+            }}
+          >
+            <div className="grid mr-4 pl-4 place-items-left text-customsize">
+              <img
+                src={
+                  selectedItem === item
+                    ? item.imgSrc.replace("_white.svg", "_black.svg")
+                    : item.imgSrc
+                }
+                alt=""
+              />
+            </div>
+            {item.text}
+          </div>
+        ))}
+      </nav>
     </div>
   );
 };

@@ -1,7 +1,8 @@
-import React from "react";
-import "tailwindcss/tailwind.css";
+// MainContent.js
 
-const MainContent = () => {
+import React from "react";
+
+const MainContent = ({ onJobSelect, onFileUpload }) => {
   return (
     <div className="flex-1 p-6">
       <div
@@ -18,8 +19,9 @@ const MainContent = () => {
               <select
                 id="job-select"
                 className="block w-full px-4 py-2 rounded-md bg-white border-b border-gray-300 focus:outline-none focus:border-blue-500 shadow-bottom shadow-md"
+                onChange={onJobSelect}
               >
-                <option disabled selected>
+                <option disabled defaultValue>
                   Select Job Post
                 </option>
                 <option>Job Post 1</option>
@@ -32,7 +34,12 @@ const MainContent = () => {
               Upload Resume
             </h3>
             <label className="block">
-              <input type="file" id="resume-upload" className="hidden h-12" />
+              <input
+                type="file"
+                id="resume-upload"
+                className="hidden h-12"
+                onChange={onFileUpload}
+              />
               <div className="w-full h-[16.5rem] p-3 flex items-center justify-center rounded-md cursor-pointer border-b border-gray-300 shadow-bottom shadow-md">
                 <img
                   src="../../Upload.svg"
@@ -62,17 +69,14 @@ const MainContent = () => {
         </div>
       </div>
       <div className="flex justify-center mt-3">
-        <button
-          className="mx-2 w-32 h-12 rounded-md bg-customblue text-white shadow-md"
-          id="analyze-button"
-        >
-          Analyze
+        <button className="mx-2 w-32 h-8 text-white bg-customblue rounded-md font-display font-semibold shadow-bottom text-base">
+          Save
         </button>
         <button
-          className="mx-2 w-32 h-12 rounded-md bg-customlightblue text-black shadow-md"
-          id="clear-button"
+          id="next-button"
+          className="mx-2 w-32 h-8 text-white bg-customblue rounded-md font-display font-semibold shadow-bottom text-base"
         >
-          Clear
+          Next
         </button>
       </div>
     </div>
