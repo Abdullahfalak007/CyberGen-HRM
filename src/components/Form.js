@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const MainContent = ({ onJobSelect, onFileUpload, onNextClick }) => {
+const Form = ({ onJobSelect, onFileUpload, onNextClick }) => {
   const [uploadedFileName, setUploadedFileName] = useState(null);
   const [skills, setSkills] = useState([]);
   const [editingSkillIndex, setEditingSkillIndex] = useState(null);
@@ -92,7 +92,7 @@ const MainContent = ({ onJobSelect, onFileUpload, onNextClick }) => {
     <div className="flex-1 p-6 w-full">
       <div
         id="progress-container"
-        className="flex justify-center items-center mx-6"
+        className="flex justify-center items-center m-6"
       ></div>
       <div className="flex justify-center mt-3">
         <div className="flex flex-col md:flex-row w-full">
@@ -208,4 +208,4 @@ const MainContent = ({ onJobSelect, onFileUpload, onNextClick }) => {
   );
 };
 
-export default MainContent;
+export default Form;

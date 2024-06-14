@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
-import MainContent from "./components/MainContent";
+import Form from "./components/Form"; // Renamed MainContent.js to Form.js
+import AnalyzingLoader from "./components/AnalyzingLoader";
+import RankedResumes from "./components/RankedResumes";
 import ProgressMilestone from "./components/ProgressMilestone";
 import "tailwindcss/tailwind.css";
 
@@ -9,6 +11,8 @@ function App() {
   const [jobSelected, setJobSelected] = useState(false);
   const [resumeUploaded, setResumeUploaded] = useState(false);
   const [nextClicked, setNextClicked] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisComplete, setAnalysisComplete] = useState(false);
 
   const handleJobSelect = (event) => {
     setJobSelected(event.target.value !== "Select Job Post");
@@ -19,7 +23,15 @@ function App() {
   };
 
   const handleNextClick = () => {
-    setNextClicked(true);
+    if (resumeUploaded) {
+      setNextClicked(true);
+      setIsAnalyzing(true);
+      // Simulate file extraction process
+      setTimeout(() => {
+        setIsAnalyzing(false);
+        setAnalysisComplete(true);
+      }, 3000); // Simulate a 3-second analysis delay
+    }
   };
 
   return (
@@ -32,11 +44,17 @@ function App() {
           resumeUploaded={resumeUploaded}
           nextClicked={nextClicked}
         />
-        <MainContent
-          onJobSelect={handleJobSelect}
-          onFileUpload={handleFileUpload}
-          onNextClick={handleNextClick}
-        />
+        {!nextClicked ? (
+          <Form
+            onJobSelect={handleJobSelect}
+            onFileUpload={handleFileUpload}
+            onNextClick={handleNextClick}
+          />
+        ) : isAnalyzing ? (
+          <AnalyzingLoader />
+        ) : (
+          analysisComplete && <RankedResumes />
+        )}
       </div>
     </div>
   );
