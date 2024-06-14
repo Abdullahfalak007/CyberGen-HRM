@@ -1,5 +1,3 @@
-// App.js
-
 import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
@@ -10,6 +8,7 @@ import "tailwindcss/tailwind.css";
 function App() {
   const [jobSelected, setJobSelected] = useState(false);
   const [resumeUploaded, setResumeUploaded] = useState(false);
+  const [nextClicked, setNextClicked] = useState(false);
 
   const handleJobSelect = (event) => {
     setJobSelected(event.target.value !== "Select Job Post");
@@ -17,6 +16,10 @@ function App() {
 
   const handleFileUpload = (event) => {
     setResumeUploaded(event.target.files.length > 0);
+  };
+
+  const handleNextClick = () => {
+    setNextClicked(true);
   };
 
   return (
@@ -27,10 +30,12 @@ function App() {
         <ProgressMilestone
           jobSelected={jobSelected}
           resumeUploaded={resumeUploaded}
+          nextClicked={nextClicked}
         />
         <MainContent
           onJobSelect={handleJobSelect}
           onFileUpload={handleFileUpload}
+          onNextClick={handleNextClick}
         />
       </div>
     </div>

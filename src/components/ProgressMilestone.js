@@ -1,8 +1,6 @@
-// ProgressMilestone.js
-
 import React, { useState, useEffect } from "react";
 
-const ProgressMilestone = ({ jobSelected, resumeUploaded }) => {
+const ProgressMilestone = ({ jobSelected, resumeUploaded, nextClicked }) => {
   const [steps, setSteps] = useState([
     { step: 1, label: "Select Job Post" },
     { step: 2, label: "Analyzer" },
@@ -10,7 +8,7 @@ const ProgressMilestone = ({ jobSelected, resumeUploaded }) => {
   ]);
 
   useEffect(() => {
-    // Update steps based on jobSelected and resumeUploaded
+    // Update steps based on jobSelected, resumeUploaded, and nextClicked
     const updatedSteps = steps.map((step) => {
       if (step.step === 1) {
         return {
@@ -21,19 +19,21 @@ const ProgressMilestone = ({ jobSelected, resumeUploaded }) => {
       } else if (step.step === 2) {
         return {
           ...step,
-          active: jobSelected && resumeUploaded,
-          completed: resumeUploaded,
+          active: jobSelected && resumeUploaded && nextClicked,
+          completed: resumeUploaded && nextClicked,
         };
-      } else {
+      } else if (step.step === 3) {
         return {
           ...step,
-          active: jobSelected && resumeUploaded,
-          completed: jobSelected && resumeUploaded, // Ensure step 3 is only completed when both jobSelected and resumeUploaded are true
+          active: false, // Modify this logic to reflect your actual condition for step 3
+          completed: false, // Modify this logic to reflect your actual condition for step 3
         };
+      } else {
+        return step;
       }
     });
     setSteps(updatedSteps);
-  }, [jobSelected, resumeUploaded]);
+  }, [jobSelected, resumeUploaded, nextClicked]);
 
   return (
     <div className="flex justify-center items-center m-6 px-6">

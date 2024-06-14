@@ -1,17 +1,76 @@
 import React, { useState } from "react";
 
-const MainContent = ({ onJobSelect, onFileUpload }) => {
+const MainContent = ({ onJobSelect, onFileUpload, onNextClick }) => {
   const [uploadedFileName, setUploadedFileName] = useState(null);
+  const [skills, setSkills] = useState([]);
+  const [editingSkillIndex, setEditingSkillIndex] = useState(null);
+  const [newSkill, setNewSkill] = useState("");
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // Assuming successful upload logic here
       setUploadedFileName(file.name);
       if (onFileUpload) {
         onFileUpload(event);
       }
     }
+  };
+
+  const handleAddSkill = (event) => {
+    if (event.key === "Enter" && newSkill.trim() !== "") {
+      setSkills([...skills, newSkill.trim()]);
+      setNewSkill("");
+    }
+  };
+
+  const handleEditSkill = (index, newValue) => {
+    const updatedSkills = [...skills];
+    updatedSkills[index] = newValue;
+    setSkills(updatedSkills);
+    setEditingSkillIndex(null);
+  };
+
+  const handleDeleteSkill = (index) => {
+    const updatedSkills = skills.filter((_, i) => i !== index);
+    setSkills(updatedSkills);
+  };
+
+  const SkillSpan = ({ skill, index }) => {
+    return editingSkillIndex === index ? (
+      <input
+        type="text"
+        value={skills[index]}
+        className="inline-block bg-white text-customblue border border-customblue rounded-full text-sm font-semibold mx-2 my-1"
+        style={{
+          paddingTop: "6px",
+          paddingBottom: "6px",
+          paddingLeft: "12px",
+          paddingRight: "12px",
+        }}
+        onChange={(e) => handleEditSkill(index, e.target.value)}
+        onBlur={() => setEditingSkillIndex(null)}
+        onKeyUp={(e) => {
+          if (e.key === "Enter") handleEditSkill(index, e.target.value);
+          if (e.key === "Backspace" && e.target.value.trim() === "") {
+            handleDeleteSkill(index);
+          }
+        }}
+        autoFocus
+      />
+    ) : (
+      <span
+        className="inline-block bg-white text-customblue border border-customblue rounded-full text-sm font-semibold mx-2 my-1"
+        style={{
+          paddingTop: "6px",
+          paddingBottom: "6px",
+          paddingLeft: "12px",
+          paddingRight: "12px",
+        }}
+        onDoubleClick={() => setEditingSkillIndex(index)}
+      >
+        {skill}
+      </span>
+    );
   };
 
   return (
@@ -95,7 +154,25 @@ const MainContent = ({ onJobSelect, onFileUpload }) => {
             <div
               id="dynamicContainer"
               className="flex flex-wrap border-b min-h-[10rem] border-gray-300 shadow-bottom shadow-md p-4"
-            ></div>
+            >
+              {skills.map((skill, index) => (
+                <SkillSpan key={index} skill={skill} index={index} />
+              ))}
+              <input
+                type="text"
+                value={newSkill}
+                onChange={(e) => setNewSkill(e.target.value)}
+                onKeyUp={handleAddSkill}
+                className="inline-block bg-white text-customblue border border-customblue rounded-full text-sm font-semibold mx-2 my-1"
+                style={{
+                  paddingTop: "6px",
+                  paddingBottom: "6px",
+                  paddingLeft: "12px",
+                  paddingRight: "12px",
+                }}
+                placeholder="Press Enter to add skill"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -106,6 +183,7 @@ const MainContent = ({ onJobSelect, onFileUpload }) => {
         <button
           id="next-button"
           className="mx-2 w-32 h-8 text-white bg-customblue rounded-md font-display font-semibold shadow-bottom text-base"
+          onClick={onNextClick}
         >
           Next
         </button>
