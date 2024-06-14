@@ -1,8 +1,19 @@
-// MainContent.js
-
-import React from "react";
+import React, { useState } from "react";
 
 const MainContent = ({ onJobSelect, onFileUpload }) => {
+  const [uploadedFileName, setUploadedFileName] = useState(null);
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      // Assuming successful upload logic here
+      setUploadedFileName(file.name);
+      if (onFileUpload) {
+        onFileUpload(event);
+      }
+    }
+  };
+
   return (
     <div className="flex-1 p-6 w-full">
       <div
@@ -21,7 +32,7 @@ const MainContent = ({ onJobSelect, onFileUpload }) => {
                 className="block w-full px-4 py-2 rounded-md bg-white border-b border-gray-300 focus:outline-none focus:border-blue-500 shadow-bottom shadow-md"
                 onChange={onJobSelect}
               >
-                <option defaultValue>Select Job Post</option>
+                <option value="">Select Job Post</option>
                 <option>Job Post 1</option>
                 <option>Job Post 2</option>
                 <option>Job Post 3</option>
@@ -31,20 +42,42 @@ const MainContent = ({ onJobSelect, onFileUpload }) => {
             <h2 className="text-lg font-display font-semibold mb-3 mt-3">
               Upload Resume
             </h2>
-            <label className="block">
+            <label htmlFor="resume-upload" className="block">
               <input
                 type="file"
                 id="resume-upload"
                 className="hidden h-12"
-                onChange={onFileUpload}
+                onChange={handleFileUpload}
               />
               <div className="w-full h-[16.5rem] p-3 flex items-center justify-center rounded-md cursor-pointer border-b border-gray-300 shadow-bottom shadow-md">
-                <img
-                  src="../../Upload.svg"
-                  alt="Upload Icon"
-                  className="w-14 h-14 mr-2"
-                />
-                <span>Upload Resume</span>
+                {uploadedFileName ? (
+                  <div className="flex items-center">
+                    <div className="w-14 h-14 bg-customblue rounded-full flex items-center justify-center">
+                      <svg
+                        className="w-8 h-8 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zm4.707 7.293a1 1 0 00-1.414-1.414L8 11.586l-2.293-2.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l5-5z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <span className="ml-2">{uploadedFileName}</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center">
+                    <img
+                      src="../../Upload.svg"
+                      alt="Upload Icon"
+                      className="w-14 h-14 mr-2"
+                    />
+                    <span>Upload Resume</span>
+                  </div>
+                )}
               </div>
             </label>
           </div>
