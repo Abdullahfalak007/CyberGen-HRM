@@ -1,24 +1,34 @@
 // src/components/RankedResumes.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GridView from "./GridView";
 import ListView from "./ListView";
-
-const resumesData = [
-  {
-    id: 1,
-    name: "John Doe",
-    similarityScore: 92,
-    appliedDate: "2024-06-01",
-  },
-  // Add more dummy data here...
-];
+import resumesData from "../data/resumes.json"; // Import existing data
+import axios from "axios"; // Import Axios for HTTP requests (you may need to install axios)
 
 const RankedResumes = () => {
   const [view, setView] = useState("grid");
+  const [loadedData, setLoadedData] = useState([]);
+
+  // Function to fetch data from JSON file
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("/data/resumes.json"); // Adjust path if necessary
+      setLoadedData(response.data); // Set loaded data to state
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(); // Fetch data when component mounts
+  }, []); // Empty dependency array ensures this effect runs only once
 
   const toggleView = () => {
     setView(view === "grid" ? "list" : "grid");
   };
+
+  // Combine existing data with loaded data
+  const combinedResumes = [...resumesData, ...loadedData];
 
   return (
     <div className="p-6">
@@ -29,9 +39,9 @@ const RankedResumes = () => {
         Toggle View
       </button>
       {view === "grid" ? (
-        <GridView resumes={resumesData} />
+        <GridView resumes={combinedResumes} />
       ) : (
-        <ListView resumes={resumesData} />
+        <ListView resumes={combinedResumes} />
       )}
     </div>
   );

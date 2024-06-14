@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-const ProgressMilestone = ({ jobSelected, resumeUploaded, nextClicked }) => {
+const ProgressMilestone = ({
+  jobSelected,
+  resumeUploaded,
+  nextClicked,
+  extractionCompleted,
+}) => {
   const [steps, setSteps] = useState([
     { step: 1, label: "Select Job Post" },
     { step: 2, label: "Analyzer" },
@@ -8,7 +13,6 @@ const ProgressMilestone = ({ jobSelected, resumeUploaded, nextClicked }) => {
   ]);
 
   useEffect(() => {
-    // Update steps based on jobSelected, resumeUploaded, and nextClicked
     const updatedSteps = steps.map((step) => {
       if (step.step === 1) {
         return {
@@ -25,15 +29,15 @@ const ProgressMilestone = ({ jobSelected, resumeUploaded, nextClicked }) => {
       } else if (step.step === 3) {
         return {
           ...step,
-          active: false, // Modify this logic to reflect your actual condition for step 3
-          completed: false, // Modify this logic to reflect your actual condition for step 3
+          active: extractionCompleted,
+          completed: extractionCompleted,
         };
       } else {
         return step;
       }
     });
     setSteps(updatedSteps);
-  }, [jobSelected, resumeUploaded, nextClicked]);
+  }, [jobSelected, resumeUploaded, nextClicked, extractionCompleted]);
 
   return (
     <div className="flex justify-center items-center m-6 px-6">

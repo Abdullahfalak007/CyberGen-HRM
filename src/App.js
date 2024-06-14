@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
-import Form from "./components/Form"; // Renamed MainContent.js to Form.js
+import Form from "./components/Form";
 import AnalyzingLoader from "./components/AnalyzingLoader";
 import RankedResumes from "./components/RankedResumes";
 import ProgressMilestone from "./components/ProgressMilestone";
@@ -11,8 +11,7 @@ function App() {
   const [jobSelected, setJobSelected] = useState(false);
   const [resumeUploaded, setResumeUploaded] = useState(false);
   const [nextClicked, setNextClicked] = useState(false);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [analysisComplete, setAnalysisComplete] = useState(false);
+  const [extractionCompleted, setExtractionCompleted] = useState(false);
 
   const handleJobSelect = (event) => {
     setJobSelected(event.target.value !== "Select Job Post");
@@ -23,15 +22,11 @@ function App() {
   };
 
   const handleNextClick = () => {
-    if (resumeUploaded) {
-      setNextClicked(true);
-      setIsAnalyzing(true);
-      // Simulate file extraction process
-      setTimeout(() => {
-        setIsAnalyzing(false);
-        setAnalysisComplete(true);
-      }, 3000); // Simulate a 3-second analysis delay
-    }
+    setNextClicked(true);
+  };
+
+  const handleExtractionComplete = () => {
+    setExtractionCompleted(true);
   };
 
   return (
@@ -43,18 +38,19 @@ function App() {
           jobSelected={jobSelected}
           resumeUploaded={resumeUploaded}
           nextClicked={nextClicked}
+          extractionCompleted={extractionCompleted}
         />
-        {!nextClicked ? (
+        {!nextClicked && (
           <Form
             onJobSelect={handleJobSelect}
             onFileUpload={handleFileUpload}
             onNextClick={handleNextClick}
           />
-        ) : isAnalyzing ? (
-          <AnalyzingLoader />
-        ) : (
-          analysisComplete && <RankedResumes />
         )}
+        {nextClicked && !extractionCompleted && (
+          <AnalyzingLoader onExtractionComplete={handleExtractionComplete} />
+        )}
+        {extractionCompleted && <RankedResumes />}
       </div>
     </div>
   );

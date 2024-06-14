@@ -1,10 +1,16 @@
-// src/components/AnalyzingLoader.js
-import React from "react";
+import React, { useEffect } from "react";
 
-const AnalyzingLoader = () => {
+const AnalyzingLoader = ({ onExtractionComplete }) => {
+  useEffect(() => {
+    // Simulate extraction process
+    setTimeout(() => {
+      onExtractionComplete();
+    }, 3000); // Adjust the timeout as needed
+  }, [onExtractionComplete]);
+
   return (
     <div className="flex justify-center items-center h-full">
-      <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32"></div>
+      <div className="loader">Loading...</div>
     </div>
   );
 };
