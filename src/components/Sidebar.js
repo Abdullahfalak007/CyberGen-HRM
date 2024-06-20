@@ -9,7 +9,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="relative flex h-full w-[16rem] max-w-[20rem] flex-col bg-customblue py-4">
+    <div className="relative flex h-100% w-[16rem] max-w-[20rem] flex-col bg-customblue py-4">
       <div className="flex items-center gap-4 p-4 mb-2">
         <img
           src="../../Logo_white.svg"
