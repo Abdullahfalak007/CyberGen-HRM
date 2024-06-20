@@ -23,21 +23,35 @@ const RankedResumes = () => {
     fetchData(); // Fetch data when component mounts
   }, []); // Empty dependency array ensures this effect runs only once
 
-  const toggleView = () => {
-    setView(view === "grid" ? "list" : "grid");
-  };
-
   // Combine existing data with loaded data
   const combinedResumes = [...resumesData, ...loadedData];
 
   return (
     <div className="p-6">
-      <button
-        className="mb-4 px-4 py-2 bg-customblue text-white rounded-md"
-        onClick={toggleView}
-      >
-        Toggle View
-      </button>
+      <div className="mb-4 flex">
+        <button
+          className={`px-6 py-2 rounded-md ${
+            view === "grid"
+              ? "bg-customblue text-white"
+              : "bg-gray-300 text-black"
+          }`}
+          onClick={() => setView("grid")}
+          style={{ marginRight: "-5px", zIndex: view === "grid" ? 1 : 0 }}
+        >
+          Grid
+        </button>
+        <button
+          className={`px-6 py-2 rounded-md ${
+            view === "list"
+              ? "bg-customblue text-white"
+              : "bg-gray-300 text-black"
+          }`}
+          onClick={() => setView("list")}
+          style={{ zIndex: view === "list" ? 1 : 0 }}
+        >
+          List
+        </button>
+      </div>
       {view === "grid" ? (
         <GridView resumes={combinedResumes} />
       ) : (
