@@ -9,3 +9,9 @@
     transform: rotate(360deg);
   }
 }
+
+html,
+body,
+#root {
+  height: 100%;
+}
