@@ -1,5 +1,5 @@
-// src/components/ResumeDetailsGridBox.js
 import React from "react";
+import checkmark from "../checkmark.png"; // Adjust the extension if it's a png
 
 const getColorForScore = (score) => {
   if (score > 70) return "bg-green-500";
@@ -12,7 +12,7 @@ const ResumeDetailsGridBox = ({ resume }) => {
 
   return (
     <div className="border p-4 m-2 rounded-md shadow-md w-full max-w-xs bg-[#e8f4ff]">
-      <div className="flex justify-between items-center mb-2 ">
+      <div className="flex justify-between items-center mb-2">
         <div className="flex items-center bg-customblue p-1 rounded-xl px-2">
           <img
             src={"../../ask_ai_icon.svg"}
@@ -25,7 +25,18 @@ const ResumeDetailsGridBox = ({ resume }) => {
         </div>
         <input
           type="checkbox"
-          className="form-checkbox h-5 w-5 text-blue-600"
+          className="appearance-none h-5 w-5 border border-gray-300 rounded-full focus:outline-none checked:bg-blue-600 checked:border-transparent"
+          style={{
+            backgroundImage: "none",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "contain",
+          }}
+          onChange={(e) => {
+            e.target.style.backgroundImage = e.target.checked
+              ? `url(${checkmark})`
+              : "none";
+          }}
         />
       </div>
       <div className="flex justify-between items-center mb-2">
@@ -51,7 +62,7 @@ const ResumeDetailsGridBox = ({ resume }) => {
           <img
             src={"../../download_cv_icon.svg"}
             alt="CV Icon"
-            className="w-4 h-4 ml-1"
+            className="w-3 h-3 ml-1"
           />
         </button>
         <button
@@ -62,7 +73,7 @@ const ResumeDetailsGridBox = ({ resume }) => {
           <img
             src={"../../download_cv_icon.svg"}
             alt="CV Icon"
-            className="w-4 h-4 ml-1"
+            className="w-3 h-3 ml-1"
           />
         </button>
         <button
@@ -73,11 +84,11 @@ const ResumeDetailsGridBox = ({ resume }) => {
           <img
             src={"../../view_resume_icon.svg"}
             alt="CV Icon"
-            className="w-4 h-4 ml-1"
+            className="w-3 h-3 ml-1"
           />
         </button>
       </div>
-      <div className="flex justify-around space-x-1">
+      <div className="flex justify-around space-x-1 mt-5">
         <button className=" text-customblue py-1 px-3 rounded-lg text-[0.533rem] text-md bg-white whitespace-nowrap">
           Approve Applicant
         </button>
@@ -88,5 +99,4 @@ const ResumeDetailsGridBox = ({ resume }) => {
     </div>
   );
 };
-
 export default ResumeDetailsGridBox;
