@@ -58,5 +58,3 @@ const ResumeDetailsGridBox = ({ resume }) => {
 };
 
 export default ResumeDetailsGridBox;
-
-("../../ask_ai_icon.svg");

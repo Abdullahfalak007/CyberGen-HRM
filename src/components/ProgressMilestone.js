@@ -46,7 +46,7 @@ const ProgressMilestone = ({
           <div className="flex flex-col items-center">
             <div
               id={`step${step.step}-circle`}
-              className={`relative flex justify-center items-center w-14 h-14 ${
+              className={`relative flex justify-center items-center w-14 h-14 font-bold ${
                 step.active
                   ? "bg-customblue text-white"
                   : "bg-white text-customblue border-customblue"
@@ -56,7 +56,7 @@ const ProgressMilestone = ({
             </div>
             <div
               id={`step${step.step}-label`}
-              className={`mt-6 px-4 py-2 w-40 rounded-lg text-center ${
+              className={`mt-6 px-4 py-2 w-40 rounded-lg text-center font-bold ${
                 step.active
                   ? "bg-gradient-to-r from-customblue to-customlightblue text-white"
                   : "bg-white text-customblue border-customblue"
