@@ -11,15 +11,17 @@ const ResumeDetailsGridBox = ({ resume }) => {
   const scoreColor = getColorForScore(resume.similarityScore);
 
   return (
-    <div className="border p-4 m-2 rounded-md shadow-md w-60">
-      <div className="flex justify-between items-center mb-2">
-        <div className="flex items-center bg-customblue p-1 rounded">
+    <div className="border p-4 m-2 rounded-md shadow-md w-full max-w-xs bg-[#e8f4ff]">
+      <div className="flex justify-between items-center mb-2 ">
+        <div className="flex items-center bg-customblue p-1 rounded-xl px-2">
           <img
             src={"../../ask_ai_icon.svg"}
             alt="Ask AI Icon"
-            className="w-6 h-6"
+            className="w-5 h-5"
           />
-          <span className="text-white ml-2">Ask AI</span>
+          <span className="text-white ml-2 text-[0.533rem] text-md">
+            Ask AI
+          </span>
         </div>
         <input
           type="checkbox"
@@ -27,29 +29,59 @@ const ResumeDetailsGridBox = ({ resume }) => {
         />
       </div>
       <div className="flex justify-between items-center mb-2">
-        <p>ID: {resume.id}</p>
-        <p className={`px-2 py-1 rounded-md text-white ${scoreColor}`}>
+        <p className="text-[0.75rem] text-md">ID: {resume.id}</p>
+        <p
+          className={`px-3 py-1 w-12 text-white ${scoreColor} text-xs rounded-l-md -mr-[17px]`}
+        >
           {resume.similarityScore}%
         </p>
       </div>
-      <p className="text-customblue mb-2">Name: {resume.name}</p>
-      <p className="mb-2">Applied on: {resume.appliedDate}</p>
-      <div className="flex justify-between mb-2">
-        <button className="bg-customblue text-white py-1 px-2 rounded">
+      <p className="text-customblue mb-2 text-md text-[0.938rem] text-md">
+        Name: {resume.name}
+      </p>
+      <p className="mb-2 text-[0.75rem] text-md">
+        Applied on: {resume.appliedDate}
+      </p>
+      <div className="flex justify-between mb-2 space-x-1">
+        <button
+          style={{ fontSize: "0.445rem" }}
+          className="bg-customblue text-white py-1 px-2 rounded-lg whitespace-nowrap flex items-center"
+        >
           Original Resume
+          <img
+            src={"../../download_cv_icon.svg"}
+            alt="CV Icon"
+            className="w-4 h-4 ml-1"
+          />
         </button>
-        <button className="bg-customblue text-white py-1 px-2 rounded">
+        <button
+          style={{ fontSize: "0.445rem" }}
+          className="bg-customblue text-white py-1 px-2 rounded-lg whitespace-nowrap flex items-center"
+        >
           Resume Branded
+          <img
+            src={"../../download_cv_icon.svg"}
+            alt="CV Icon"
+            className="w-4 h-4 ml-1"
+          />
         </button>
-        <button className="bg-customblue text-white py-1 px-2 rounded">
+        <button
+          style={{ fontSize: "0.445rem" }}
+          className="bg-customblue text-white py-1 px-2 rounded-lg whitespace-nowrap flex items-center"
+        >
           Resume Summary
+          <img
+            src={"../../view_resume_icon.svg"}
+            alt="CV Icon"
+            className="w-4 h-4 ml-1"
+          />
         </button>
       </div>
-      <div className="flex justify-between">
-        <button className="border border-customblue text-customblue py-1 px-2 rounded">
+      <div className="flex justify-around space-x-1">
+        <button className=" text-customblue py-1 px-3 rounded-lg text-[0.533rem] text-md bg-white whitespace-nowrap">
           Approve Applicant
         </button>
-        <button className="border border-customblue text-customblue py-1 px-2 rounded">
+        <button className=" text-customblue py-1 px-3 rounded-lg text-[0.533rem] text-md bg-white whitespace-nowrap">
           Not Considered
         </button>
       </div>
